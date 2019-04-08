@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Firma
+namespace CSharpPFCursus
 {
-    interface IKost
+    class Rekenaar
     {
-        decimal Bedrag { get; }
-        bool Menselijk { get; }
+        public static int Kwadraat(int getal) { return getal * getal; }
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace CSharpPFCursus
+﻿namespace Firma.Personeel
 {
     public enum Geslacht
     {

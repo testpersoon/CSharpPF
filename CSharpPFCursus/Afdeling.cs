@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CSharpPFCursus
+namespace Firma.Personeel
 {
     public class Afdeling
     {
