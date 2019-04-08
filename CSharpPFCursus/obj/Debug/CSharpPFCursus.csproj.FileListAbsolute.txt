@@ -1,0 +1,7 @@
+C:\Users\net07\Documents\C# - programming fundamentals\CSharpPF\CSharpPFCursus\bin\Debug\CSharpPFCursus.exe.config
+C:\Users\net07\Documents\C# - programming fundamentals\CSharpPF\CSharpPFCursus\bin\Debug\CSharpPFCursus.exe
+C:\Users\net07\Documents\C# - programming fundamentals\CSharpPF\CSharpPFCursus\bin\Debug\CSharpPFCursus.pdb
+C:\Users\net07\Documents\C# - programming fundamentals\CSharpPF\CSharpPFCursus\obj\Debug\CSharpPFCursus.csprojAssemblyReference.cache
+C:\Users\net07\Documents\C# - programming fundamentals\CSharpPF\CSharpPFCursus\obj\Debug\CSharpPFCursus.csproj.CoreCompileInputs.cache
+C:\Users\net07\Documents\C# - programming fundamentals\CSharpPF\CSharpPFCursus\obj\Debug\CSharpPFCursus.exe
+C:\Users\net07\Documents\C# - programming fundamentals\CSharpPF\CSharpPFCursus\obj\Debug\CSharpPFCursus.pdb
