@@ -1,0 +1,7 @@
+C:\Users\net07\Documents\C# - programming fundamentals\CSharpPF\TussentijdseOefening\bin\Debug\TussentijdseOefening.exe.config
+C:\Users\net07\Documents\C# - programming fundamentals\CSharpPF\TussentijdseOefening\bin\Debug\TussentijdseOefening.exe
+C:\Users\net07\Documents\C# - programming fundamentals\CSharpPF\TussentijdseOefening\bin\Debug\TussentijdseOefening.pdb
+C:\Users\net07\Documents\C# - programming fundamentals\CSharpPF\TussentijdseOefening\obj\Debug\TussentijdseOefening.csprojAssemblyReference.cache
+C:\Users\net07\Documents\C# - programming fundamentals\CSharpPF\TussentijdseOefening\obj\Debug\TussentijdseOefening.csproj.CoreCompileInputs.cache
+C:\Users\net07\Documents\C# - programming fundamentals\CSharpPF\TussentijdseOefening\obj\Debug\TussentijdseOefening.exe
+C:\Users\net07\Documents\C# - programming fundamentals\CSharpPF\TussentijdseOefening\obj\Debug\TussentijdseOefening.pdb
