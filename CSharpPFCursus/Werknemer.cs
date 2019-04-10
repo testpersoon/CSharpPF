@@ -135,5 +135,17 @@ namespace Firma.Personeel
         }
         public DateTime[] Verlofdagen { get; set; }
         public DateTime[] Ziektedagen { get; set; }
+        public static void UitgebreideWerknemersLijst(Werknemer[] werknemers)
+        {
+            Console.WriteLine("Uitgebreide werknemerslijst:");
+            foreach (Werknemer werknemer in werknemers)
+                werknemer.Afbeelden();
+        }
+        public static void KorteWerknemersLijst(Werknemer[] werknemers)
+        {
+            Console.WriteLine("Verkorte werknemeslijst:");
+            foreach (Werknemer werknemer in werknemers)
+                Console.WriteLine(werknemer.ToString());
+        }
     }
 }

@@ -32,7 +32,7 @@ namespace CSharpPFOefenmap
         public override void Afbeelden()
         {
             base.Afbeelden();
-            Console.WriteLine("MaxKrediet: " + MaxKrediet);
+            Console.WriteLine("MaxKrediet: " + MaxKrediet + " euro");
         }
     }
 }

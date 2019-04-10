@@ -8,6 +8,10 @@ namespace Firma.Personeel
 {
     public class Bediende : Werknemer
     {
+        public void DoeOnderhoud(Firma.Materiaal.Fotokopiemachine machine)
+        {
+            Console.WriteLine($"{Naam} onderhoudt machine {machine.SerieNr}");
+        }
         public Bediende(string naam, DateTime inDienst, Geslacht geslacht, decimal wedde) : base(naam, inDienst, geslacht)
         {
             Wedde = wedde;

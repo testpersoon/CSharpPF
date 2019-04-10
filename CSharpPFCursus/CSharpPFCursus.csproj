@@ -46,6 +46,7 @@
     <Compile Include="Afdeling.cs" />
     <Compile Include="Arbeider.cs" />
     <Compile Include="Bediende.cs" />
+    <Compile Include="ProvincieInfo.cs" />
     <Compile Include="StatusPersoneel.cs" />
     <Compile Include="Fotokopiemachine.cs" />
     <Compile Include="IKost.cs" />

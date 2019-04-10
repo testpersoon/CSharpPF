@@ -21,16 +21,23 @@ namespace CSharpPFCursus
     {
         static void Main(string[] args)
         {
-            var statusBoorMachine = MateriaalStatus.Werkend;
-            var statusChef = PersoneelStatus.HogerKader;
-            Console.WriteLine(statusBoorMachine);
-            Console.WriteLine(statusChef);
-        }
-
-        public static (int aantalVerlofdagen, int aantalZiektedagen) Afwezigheden(Werknemer werknemer)
-        {
-            (int, int) aantalAfwezigheden = (werknemer.Verlofdagen.Length, werknemer.Ziektedagen.Length);
-            return aantalAfwezigheden;
+            try
+            {
+                Fotokopiemachine machine =
+                new Fotokopiemachine("123", -100, -5.4m);
+                Console.WriteLine("Machine goed ingevuld");
+            }
+            catch (Fotokopiemachine.KostPerBlzException ex)
+            {
+                Console.WriteLine("Fout:" + ex.Message + ':' +
+                ex.VerkeerdeKost);
+            }
+            catch (Fotokopiemachine.AantalGekopieerdeBlzException ex)
+            {
+                Console.WriteLine("Fout:" + ex.Message + ':' +
+                ex.VerkeerdAantalBlz);
+            }
+            Console.WriteLine("Einde programma");
         }
     }
 }

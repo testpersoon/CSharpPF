@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace CSharpPFOefenmap
 {
+    public delegate void Transactie(Rekening rekening);
     public abstract class Rekening: ISpaarmiddel
     {
         public Klant Eigenaar {get; set; }
@@ -55,11 +56,11 @@ namespace CSharpPFOefenmap
         {
             if (Eigenaar != null)
             {
-                Console.WriteLine("Eigenaar: ");
+                Console.WriteLine("Eigenaar");
                 Eigenaar.Afbeelden();
             }
             Console.WriteLine("Rekeningnummer: " + rekeningnummerValue);
-            Console.WriteLine("Saldo: " + Saldo);
+            Console.WriteLine("Saldo: " + Saldo + " euro");
             Console.WriteLine("Creatiedatum: " + creatiedatumValue);
         }
 
@@ -67,11 +68,11 @@ namespace CSharpPFOefenmap
         {
             if (bedrag > 0)
             {
+                VorigSaldo = Saldo;
                 Saldo += bedrag;
-                Console.WriteLine("Het nieuwe saldo bedraagt " + Saldo + " euro");
+                RekeningUittreksel?.Invoke(this);
             }
         }
-
         private bool IsGeldigRekeningnummer(string rekeningnummer)
         {
             string controleNr = rekeningnummer.Replace(" ", "");
@@ -88,6 +89,22 @@ namespace CSharpPFOefenmap
             else
             {
                 return false;
+            }
+        }
+        public event Transactie RekeningUittreksel;
+        public event Transactie SaldoInHetRood;
+        public decimal VorigSaldo { get; set; }
+        public void Afhalen(decimal bedrag)
+        {
+            if (bedrag > 0 && bedrag <= Saldo)
+            {
+                VorigSaldo = Saldo;
+                Saldo -= bedrag;
+                RekeningUittreksel?.Invoke(this);
+            }
+            else if (bedrag > 0 && bedrag > Saldo)
+            {
+                SaldoInHetRood?.Invoke(this);
             }
         }
     }

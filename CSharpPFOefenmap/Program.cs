@@ -10,21 +10,16 @@ namespace CSharpPFOefenmap
     {
         static void Main(string[] args)
         {
-            var pw = new Personenwagen("jos", 20000m, 250, 10.2f, "1DFE152", 5, 1);
-            var vw = new Vrachtwagen("flup", 19999m, 95, 20.2f, "2PKE999", 5200f);
-            IPrivaat[] voertuigen = new IPrivaat[2];
-            voertuigen[0] = pw;
-            voertuigen[1] = vw;
-            foreach (IPrivaat voertuig in voertuigen)
-            {
-                Console.WriteLine(voertuig.GeefPrivateData());
-            }
-
-            IMilieu[] anderevoertuigen = new IMilieu[2];
-            anderevoertuigen[0] = vw;
-            anderevoertuigen[1] = pw;
-            foreach (IMilieu voertuig in anderevoertuigen)
-                Console.WriteLine(voertuig.GeefMilieuData());
+            var jefke = new Klant("Jeff", "Bezos");
+            var meneerDeBankbediende = new BankBediende("Alberto", "Vermicelli");
+            var zichtrekening = new Zichtrekening("BE11 4050 5046 1148", 450m, DateTime.Now, -200m, jefke);
+            var spaarrekening = new Spaarrekening("test", 12m, DateTime.Now, jefke);
+            zichtrekening.RekeningUittreksel += meneerDeBankbediende.RekeningUittrekselTonen;
+            zichtrekening.SaldoInHetRood += meneerDeBankbediende.BoodschapSaldoOntoereikend;
+            zichtrekening.Storten(400m);
+            spaarrekening.RekeningUittreksel += meneerDeBankbediende.RekeningUittrekselTonen;
+            spaarrekening.SaldoInHetRood += meneerDeBankbediende.BoodschapSaldoOntoereikend;
+            spaarrekening.Afhalen(40m);
         }
     }
 }

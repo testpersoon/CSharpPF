@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BankBediende.cs" />
     <Compile Include="IMilieu.cs" />
     <Compile Include="IPrivaat.cs" />
     <Compile Include="IVervuiler.cs" />
