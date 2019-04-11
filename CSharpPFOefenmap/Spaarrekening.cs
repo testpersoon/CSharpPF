@@ -21,6 +21,10 @@ namespace CSharpPFOefenmap
                 {
                     intrestValue = value;
                 }
+                else
+                {
+                    throw new Exception("Een negatieve intrest wordt niet geaccepteerd");
+                }
             }
         }
 

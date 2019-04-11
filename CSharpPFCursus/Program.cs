@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,23 +22,34 @@ namespace CSharpPFCursus
     {
         static void Main(string[] args)
         {
-            try
+            List<Object> lijst = new List<Object>()
             {
-                Fotokopiemachine machine =
-                new Fotokopiemachine("123", -100, -5.4m);
-                Console.WriteLine("Machine goed ingevuld");
-            }
-            catch (Fotokopiemachine.KostPerBlzException ex)
+                new Arbeider("Asterix", new DateTime(2018, 1, 1), Geslacht.Man, 24.79m, 3),
+                new Bediende("Obelix", new DateTime(2018, 2, 1), Geslacht.Man, 2400.79m),
+                new Fotokopiemachine("123", 500, 0.025m),
+                null,
+                "C# 7.0"
+            };
+            foreach (var item in lijst)
             {
-                Console.WriteLine("Fout:" + ex.Message + ':' +
-                ex.VerkeerdeKost);
+                ToonGegevens(item);
             }
-            catch (Fotokopiemachine.AantalGekopieerdeBlzException ex)
+        }
+        private static void ToonGegevens(Object obj)
+        {
+            if (obj is Werknemer w)
             {
-                Console.WriteLine("Fout:" + ex.Message + ':' +
-                ex.VerkeerdAantalBlz);
+                Console.WriteLine($"Werknemer {w.Naam} kost {w.Bedrag} euro");
             }
-            Console.WriteLine("Einde programma");
+            else if (obj is Fotokopiemachine f)
+            {
+                Console.WriteLine($"Fotokopiemachine {f.SerieNr} kopieerde" +
+                $" {f.AantalGekopieerdeBlz} en kost {f.Bedrag} euro");
+            }
+            else
+            {
+                Console.WriteLine("onbekend type");
+            }
         }
     }
 }

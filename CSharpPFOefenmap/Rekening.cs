@@ -10,7 +10,6 @@ namespace CSharpPFOefenmap
     public abstract class Rekening: ISpaarmiddel
     {
         public Klant Eigenaar {get; set; }
-
         private string rekeningnummerValue;
         public string Rekeningnummer
         {
@@ -22,6 +21,10 @@ namespace CSharpPFOefenmap
             {
                 if (IsGeldigRekeningnummer(value)){
                     rekeningnummerValue = value;
+                }
+                else
+                {
+                    throw new Exception("Ongeldig rekeningnummer");
                 }
             }
         }
@@ -38,6 +41,10 @@ namespace CSharpPFOefenmap
                 if (value.Year >= 1900)
                 {
                     creatiedatumValue = value;
+                }
+                else
+                {
+                    throw new Exception("De creatiedatum kan niet voor 1-1-1990 zijn");
                 }
             }
         }

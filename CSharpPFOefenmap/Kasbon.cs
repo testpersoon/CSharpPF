@@ -24,6 +24,10 @@ namespace CSharpPFOefenmap
                 {
                     aankoopDatumValue = value;
                 }
+                else
+                {
+                    throw new Exception("De aankoopdatum kan niet voor 1-1-1990 liggen");
+                }
             }
         }
         public decimal Bedrag
@@ -37,6 +41,10 @@ namespace CSharpPFOefenmap
                 if (value > 0)
                 {
                     bedragValue = value;
+                }
+                else
+                {
+                    throw new Exception("Bedrag kan geen negatieve waarde hebben");
                 }
             }
         }
@@ -52,6 +60,10 @@ namespace CSharpPFOefenmap
                 {
                     looptijdValue = value;
                 }
+                else
+                {
+                    throw new Exception("De looptijd kan niet negatief zijn");
+                }
             }
         }
         public decimal Intrest
@@ -65,6 +77,10 @@ namespace CSharpPFOefenmap
                 if (value > 0m)
                 {
                     intrestValue = value;
+                }
+                else
+                {
+                    throw new Exception("De intrest kan niet negatief zijn");
                 }
             }
         }

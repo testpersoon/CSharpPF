@@ -12,7 +12,6 @@ namespace CSharpPFOefenmap
         {
             MaxKrediet = maxKrediet;
         }
-
         private decimal maxKredietValue;
         public decimal MaxKrediet
         {
@@ -25,6 +24,10 @@ namespace CSharpPFOefenmap
                 if (value <= 0m)
                 {
                     maxKredietValue = value;
+                }
+                else
+                {
+                    throw new Exception("Een positieve waarde voor maximum krediet is ongeldig");
                 }
             }
         }

@@ -11,21 +11,19 @@ namespace CSharpPFCursus
     {
         public int ProvincieGrootte(string provincieNaam)
         {
-            StreamReader lezer = new StreamReader(@"C:\VS2017\provincies.txt");
-            int oppervlakte = -1;
-            string regel;
-            while ((regel = lezer.ReadLine()) != null)
+            using (StreamReader lezer = new
+            StreamReader(@"C:\Users\net07\Documents\C# - programming fundamentals\CSharpPF\CSharpPFCursus\provincies.txt"))
             {
-                int dubbelPuntPos = regel.IndexOf(':');
-                string provincie = regel.Substring(0, dubbelPuntPos);
-                if (provincie == provincieNaam)
-                    oppervlakte = int.Parse(regel.Substring(dubbelPuntPos + 1));
+                string regel;
+                while ((regel = lezer.ReadLine()) != null)
+                {
+                    int dubbelPuntPos = regel.IndexOf(':');
+                    string provincie = regel.Substring(0, dubbelPuntPos);
+                    if (provincie == provincieNaam)
+                        return int.Parse(regel.Substring(dubbelPuntPos + 1));
+                }
             }
-            lezer.Close();
-            if (oppervlakte == -1)
-                throw new Exception("Onbestaande provincie: " + provincieNaam);
-            else
-                return oppervlakte;
+            throw new Exception("Onbestaande provincie:" + provincieNaam);
         }
     }
 }
