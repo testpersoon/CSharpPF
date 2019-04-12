@@ -6,23 +6,31 @@ using System.Threading.Tasks;
 
 namespace CSharpPFOefenmap
 {
-    class Program
+    public class Program
     {
         static void Main(string[] args)
         {
-            try
+            Func<int, bool> even = getal => Math.Abs(getal) % 2 == 0;
+            Func<int, bool> pos = getal => getal >= 0;
+            var getallen = new List<int>
+            { 2, 15, 8, 3, -5, 9, -91, 65, 2, -94, -84 };
+            getallen.GetallenTonen
+                (even, ConsoleColor.Green, ConsoleColor.Red);
+            getallen.GetallenTonen
+                (pos, ConsoleColor.White, ConsoleColor.Yellow);
+        }
+    }
+    public static class MyListExtensions
+    {
+        public static void GetallenTonen(this List<int> getallen,
+            Func<int, bool> test, ConsoleColor kleur1, ConsoleColor kleur2)
+        {
+            foreach (int getal in getallen)
             {
-                var jefke = new Klant("Jeff", "Bezos");
-                var meneerDeBankbediende = new BankBediende("Alberto", "Vermicelli");
-                var zichtrekening = new Zichtrekening("BE11 4050 5046 1148", 450m, new DateTime(1999,2,2), -200m, jefke);
-                var spaarrekening = new Spaarrekening("BE11 4050 5046 1148", 12m, DateTime.Now, jefke);
-                Spaarrekening.Intrest = 5m;
-                var kasbon = new Kasbon(new DateTime(2010, 9, 9), 50m, 5, 10, jefke);
+                Console.ForegroundColor = test(getal) ? kleur1 : kleur2;
+                Console.Write($"{getal}, ");
             }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Fout: {ex.Message}");
-            }
+            Console.WriteLine();
         }
     }
 }
