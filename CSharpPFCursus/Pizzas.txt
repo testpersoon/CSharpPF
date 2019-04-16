@@ -1,0 +1,3 @@
+Pizza Margherita:2:Tomatensaus:Mozzarella:8
+Pizza Vegetariana:3:Tomatensaus:Mozzarella:Groenten:9,5
+Pizza Napoli:5:Tomatensaus:Mozzarella:Ansjovis:Kappers:Olijven:10
