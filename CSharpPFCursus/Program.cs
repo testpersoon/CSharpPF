@@ -23,9 +23,23 @@ namespace CSharpPFCursus
         public static void Main(string[] args)
         {
             var brouwers = new Brouwers().GetBrouwers();
-            var alleBrouwers = from brouwer in brouwers orderby brouwer.Brouwernaam select new { brouwer.Brouwernaam, brouwer.Bieren.Count };
-            foreach (var brouwer in alleBrouwers)
-                Console.WriteLine(brouwer.ToString());
+            var opBelgisch = from brouwer in brouwers
+                             from bier in brouwer.Bieren
+                             group bier by brouwer.Belgisch
+            into bieren
+                             select new
+                             {
+                                 Bieren = bieren,
+                                 Belgisch = bieren.Key,
+                                 AantalBieren = bieren.Count()
+                             };
+            foreach (var groep in opBelgisch)
+            {
+                Console.WriteLine((groep.Belgisch ? "Belgische bieren: " :
+                "Niet-Belgische bieren: ") + groep.AantalBieren);
+                foreach (var bier in groep.Bieren)
+                    Console.WriteLine(bier.Biernaam);
+            }
         }
     }
 }

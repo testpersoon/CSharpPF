@@ -51,6 +51,7 @@
     <Compile Include="Kasbon.cs" />
     <Compile Include="Klant.cs" />
     <Compile Include="Personenwagen.cs" />
+    <Compile Include="Plant.cs" />
     <Compile Include="Rekening.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
