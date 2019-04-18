@@ -28,19 +28,25 @@ namespace CSharpPFOefenmap
         public DateTime Tijdstip { get; set; }
         public override string ToString()
         {
-            //naam + bericht + tijdstip
-            StringBuilder tweet = new StringBuilder($"{Naam}: {Bericht}: ");
-            TimeSpan verschil = DateTime.Now - this.Tijdstip;
-            if (verschil.Days > 0)
-                tweet.Append(this.Tijdstip.ToShortDateString());
-            else if (verschil.Hours > 0)
-                tweet.Append(verschil.Hours + " uur geleden");
-            else if (verschil.Minutes > 0)
-                tweet.Append(verschil.Minutes +
-                (verschil.Minutes == 1 ? " minuut" : " minuten") + " geleden");
+            TimeSpan verschil = DateTime.Now.Subtract(Tijdstip);
+            var tekst = string.Empty;
+            if (verschil.Days >= 1)
+            {
+                tekst += Tijdstip.ToString("dd-MM-yyyy") + "       ";
+            }
+            else if (verschil.Hours >= 1)
+            {
+                tekst += DateTime.Now.Subtract(Tijdstip).Hours.ToString() + " uur geleden   ";
+            }
+            else if (verschil.Minutes >= 1){
+                tekst += DateTime.Now.Subtract(Tijdstip).Minutes.ToString() + " minuten geleden  ";
+            }
             else
-                tweet.Append(this.Tijdstip.ToShortTimeString());
-            return tweet.ToString();
+            {
+                tekst += Tijdstip.ToString("HH:mm") + "            ";
+            }
+            tekst += $" - {Naam} - {Bericht}";
+            return tekst;
         }
     }
 }

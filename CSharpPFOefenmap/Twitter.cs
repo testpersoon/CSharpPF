@@ -12,96 +12,112 @@ namespace CSharpPFOefenmap
 {
     public class Twitter
     {
-        const string twitterbestand = @"C:\Users\net07\Documents\CSharpPF\CSharpPFOefenmap\Twitter.obj";
-        //alle tweets in omgekeerde chronologische volgorde
-        public List<Tweet> AlleTweets()
+        const string bestandLocatie = @"C:\Users\net07\Documents\CSharpPF\CSharpPFOefenmap\Twitter.obj";
+        public static void TweetPlaatsen(Tweet tweet)
         {
-            if (File.Exists(twitterbestand))
+            if (File.Exists(bestandLocatie))
             {
-                var tweets = LeesTweets();
-                return tweets.AlleTweets().OrderByDescending(
-                t => t.Tijdstip).ToList();
+                try
+                {
+                    Tweets tweets;
+                    using (var bestand = File.Open(bestandLocatie, FileMode.Open, FileAccess.Read))
+                    {
+                        var lezer = new BinaryFormatter();
+                        tweets = (Tweets)lezer.Deserialize(bestand);
+                        tweets.AddTweet(tweet);
+                    }
+                    using (var bestand = File.Open(bestandLocatie, FileMode.Create))
+                    {
+                        var schrijver = new BinaryFormatter();
+                        schrijver.Serialize(bestand, tweets);
+                    }
+                }
+                catch (SerializationException)
+                {
+                    Console.WriteLine("Fout bij het serialiseren/deserialiseren");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
             }
             else
             {
-                throw new Exception("Het bestand " + twitterbestand + " is niet gevonden!");
-            }
-        }
-        //Alle Tweets van één twitteraar
-        public List<Tweet> TweetsVan(string naam)
-        {
-            return AlleTweets().Where(
-            t => t.Naam.ToUpper() == naam.ToUpper()).ToList();
-        }
-        //Een tweet toevoegen
-        public void SchrijfTweet(Tweet tweet)
-        {
-            Tweets tweets;
-            if (File.Exists(twitterbestand))
-            {
-                //als het bestand bestaat,
-                //eerst de verzameling van bestaande tweets inlezen
-                tweets = LeesTweets();
-            }
-            else
-            {
-                tweets = new Tweets();
-            }
-            tweets.AddTweet(tweet);
-            //de verzameling tweets wegschrijven
-            SchrijfTweets(tweets);
-        }
-        //verzameling tweets inlezen uit bestand
-        private Tweets LeesTweets()
-        {
-            try
-            {
-                using (var bestand = File.Open(twitterbestand,
-                FileMode.Open, FileAccess.Read))
+                try
                 {
-                    var lezer = new BinaryFormatter();
-                    return ((Tweets)lezer.Deserialize(bestand));
+                    using (var bestand = File.Open(bestandLocatie, FileMode.Create))
+                    {
+                        var lezer = new BinaryFormatter();
+                        var tweets = new Tweets();
+                        tweets.AddTweet(tweet);
+                        lezer.Serialize(bestand, tweets);
+                    }
+                }
+                catch (IOException)
+                {
+                    throw new Exception("Fout bij het maken van het bestand");
+                }
+                catch (SerializationException)
+                {
+                    Console.WriteLine("Fout bij het serialiseren");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
                 }
             }
-            catch (IOException)
-            {
-                throw new Exception("Fout bij het openen van het bestand!");
-            }
-            catch (SerializationException)
-            {
-                throw new Exception("Fout bij het deserialiseren, " +
-                "het twitterbestand kan niet meer geopend worden");
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
         }
-        //verzameling tweets wegschrijven naar bestand
-        private void SchrijfTweets(Tweets tweets)
+        public static void AlleTweetsTonen()
         {
-            try
+            if (File.Exists(bestandLocatie))
             {
-                using (var bestand = File.Open(twitterbestand,
-                FileMode.OpenOrCreate))
+                try
                 {
-                    var schrijver = new BinaryFormatter();
-                    schrijver.Serialize(bestand, tweets);
+                    using (var bestand = File.Open(bestandLocatie, FileMode.Open, FileAccess.Read))
+                    {
+                        var lezer = new BinaryFormatter();
+                        var tweets = (Tweets)lezer.Deserialize(bestand);
+                        //var tweetsChronologisch = (from tweet in tweets.AlleTweets() orderby tweet.Tijdstip descending select tweet);
+                        var tweetsChronologisch = tweets.AlleTweets().OrderByDescending(t => t.Tijdstip).ToList();
+                        foreach (Tweet tweet in tweetsChronologisch)
+                        {
+                            Console.WriteLine(tweet.ToString());
+                        }
+                    }
+                }
+                catch (SerializationException)
+                {
+                    Console.WriteLine("Fout bij het serialiseren/deserialiseren");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
                 }
             }
-            catch (IOException)
+        }
+        public static void TweetsVanUser(string naam)
+        {
+            if (File.Exists(bestandLocatie))
             {
-                throw new Exception("Fout bij het openen van het bestand!");
-            }
-            catch (SerializationException)
-            {
-                throw new Exception("Fout bij het serialiseren");
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
+                try
+                {
+                    using (var bestand = File.Open(bestandLocatie, FileMode.Open, FileAccess.Read))
+                    {
+                        var lezer = new BinaryFormatter();
+                        Tweets tweets = (Tweets)lezer.Deserialize(bestand);
+                        List<Tweets> tweetsGebruiker = tweets.AlleTweets().Where(n => n.Naam == naam).ToList();
+                        tweetsGebruiker.ToString();
+                    }
+                }
+                catch (SerializationException)
+                {
+                    Console.WriteLine("Fout bij het serialiseren/deserialiseren");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
             }
         }
-
     }
 }
