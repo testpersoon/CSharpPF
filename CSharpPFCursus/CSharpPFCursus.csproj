@@ -51,6 +51,7 @@
     <Compile Include="Brouwers.cs" />
     <Compile Include="MyStringExtensions.cs" />
     <Compile Include="Overuren.cs" />
+    <Compile Include="Pizza.cs" />
     <Compile Include="ProvincieInfo.cs" />
     <Compile Include="StatusPersoneel.cs" />
     <Compile Include="Fotokopiemachine.cs" />
