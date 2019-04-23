@@ -13,8 +13,9 @@ namespace CSharpPFOefenmap
     public class Twitter
     {
         const string bestandLocatie = @"C:\Users\net07\Documents\CSharpPF\CSharpPFOefenmap\Twitter.obj";
-        public static void TweetPlaatsen(Tweet tweet)
+        public static void TweetPlaatsen(string naam, string bericht)
         {
+            var tweet = new Tweet { Naam = naam, Bericht = bericht, Tijdstip = DateTime.Now };
             if (File.Exists(bestandLocatie))
             {
                 try
@@ -30,6 +31,7 @@ namespace CSharpPFOefenmap
                     {
                         var schrijver = new BinaryFormatter();
                         schrijver.Serialize(bestand, tweets);
+                        Console.WriteLine("Tweet succesvol geplaatst!");
                     }
                 }
                 catch (SerializationException)
@@ -47,10 +49,11 @@ namespace CSharpPFOefenmap
                 {
                     using (var bestand = File.Open(bestandLocatie, FileMode.Create))
                     {
-                        var lezer = new BinaryFormatter();
+                        var schrijver = new BinaryFormatter();
                         var tweets = new Tweets();
                         tweets.AddTweet(tweet);
-                        lezer.Serialize(bestand, tweets);
+                        schrijver.Serialize(bestand, tweets);
+                        Console.WriteLine("Tweet succesvol geplaatst!");
                     }
                 }
                 catch (IOException)
@@ -105,8 +108,12 @@ namespace CSharpPFOefenmap
                     {
                         var lezer = new BinaryFormatter();
                         Tweets tweets = (Tweets)lezer.Deserialize(bestand);
-                        List<Tweets> tweetsGebruiker = tweets.AlleTweets().Where(n => n.Naam == naam).ToList();
-                        tweetsGebruiker.ToString();
+                        List<Tweet> tweetsGebruiker = tweets.AlleTweets().Where(n => n.Naam == naam).ToList();
+                        tweetsGebruiker = tweetsGebruiker.OrderByDescending(t => t.Tijdstip).ToList();
+                        foreach (Tweet foo in tweetsGebruiker)
+                        {
+                            Console.WriteLine(foo.ToString());
+                        }
                     }
                 }
                 catch (SerializationException)
