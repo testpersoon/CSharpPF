@@ -18,7 +18,7 @@ namespace Firma.Materiaal
             {
                 Console.WriteLine($"FotokopieMachine {SerieNr} kopieert blz. {blz} van {aantalBlz}");
                 if (++AantalGekopieerdeBlz % AantalBlzTussen20OnderhoudsBeurten == 0)
-                    OnderhoudNodig?.Invoke(this);   
+                    OnderhoudNodig?.Invoke(this);
             }
         }
         private int aantalGekopieerdeBlzValue;

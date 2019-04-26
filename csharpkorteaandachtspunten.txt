@@ -1,0 +1,163 @@
+private is enkel binnen de class, protected zijn ook afgeleide classes.
+
+ternary operator of OOK conditional operator
+
+static members komen maar 1 keer voor in het geheugen. Een static constructor wordt uitgevoerd vóór je de class gebruikt.
+bv voor de datum van een personeelsfeest. Maar dus ook static methods met classbereik, dan hoef je geen object aan te maken.
+
+ReadOnly en WriteOnly:
+een property met een private set kan enkel door een method binnen de class of via een constructor ingevuld en gewijzigd worden
+een property zonder set kan enkel via een constructor ingevuld worden maar niet door een method
+
+je kan een constructor van de eigen class oproepen via this() en van de base via base()
+virtual
+override
+sealed
+
+
+ABSTRACT:
+van abstract classes kan je geen objecten maken, alleen derived classes. Van sealed classes kan je geen derived classes meer maken
+abstract members sluit je meteen af net zoals getters en setters, get; set;
+abstract is automatisch virtual maar niet readonly.
+
+
+INHERITANCE POLYMORPHISM: OF INTERFACE POLYMORPHISM
+met een foreach kan je methods van derived classes (of gemeenschappelijke base class) oproepen
+
+aggregation zijn properties met als type een andere class
+
+INTERFACE
+bij de properties en methods van een interface kan je geen toegangsniveau vermelden.
+Als je een method niet nodig hebt van een interface maar wel in een derived class; maak je er een abstract method van
+Je kan wel een reference variabele van het type van de interface maken om te verwijzen naar een object van een derived class
+MAAR geen object van het type interface.
+
+TUPLES kunnen net zoals classes of out parameters voor meer returnwaardes zorgen
+tuples die binnen een method worden gedeclareerd kunnen ook buiten deze method worden aangesproken
+(int aantalDagen, int aantalWeken) tupleNaam
+
+Het verschil tussen een class en een STRUCT is, dat inheritance bij een struct niet mogelijk is. bv. DateTime, Byte ..
+en allemaal value types zijn.
+
+namespaces altijd apart importeren, ook de geneste. Met using static, specifieke classes
+
+DELEGATES zijn reference variabelen naar een method en zijn handig om methods als parameter mee te geven. 
+Het type van de parameters en returnwaarde mogen verschillen op voorwaarde dat de conversie mogelijk is.
+In 1 class het event aanmaken en oproepen en in een andere class een soortgelijke method aanmaken als de delegate
+en hierna koppelen aan elkaar in het hoofdprogramma.
+Anonymous methods en lambda expressions worden niet vaak gebruikt voor EVENT HANDLERS.
+	anonymous: button1.Click += delegate { Console.WriteLine(); };
+	lambda: button1.Click += (object sender, EventArgs a) => { Console.WriteLine(); };
+button1.Click += function();
+
+object initializer i p v constructor met parameters
+
+EXCEPTIONS:
+Je kan een exception catchen door tussen haakjes het type van exception aan te geven. Als je nog iets wil oproepen
+van deze exception geef je dit type een variabele (bv. ex) en roep je hiervan de StackTrace of Message van op.
+ZELF een exception maken doe je door deze als inner class aan te maken en deze verder in de class te THROWEN. In het main
+programma omsluit je het object van deze class dan door een try en catch je hierna de custom foutmelding dmv
+catch (Fotokopiemachine.KostPerBlzException ex) { ... ex.VerkeerdeKost ...);
+Een FINALLY voert uit ongeacht een exception of return, bv try .. catch.. catch.. finally .. ;
+USING vervangt try en finally, dus GEEN CATCH. Je kan na een finally wel bv een exception throwen
+
+
+
+de null conditional operator ?
+en ?? om ook een defaultwaarde mee te geven: afdelingsnaam = asterix.Afdeling?.Naam??"onbekend";
+
+
+
+Indexers zorgen er gewoon voor dat je makkelijk een array in een object kan aanspreken.
+public int this[int index] {get return ...value; set ...}
+
+Arrays zijn niet zo rekbaar, Collections wel:
+List<T> is beter dan ArrayList, arraylists slagen nog alles op als object en dan moet je steeds casten, bv bij LINQ
+maar in een list kan dan wel maar 1 type!
+
+
+
+
+
+Hashtables bevatten allemaal keys/value pairs. (ongeveer zoals SortedList)
+Queue is first-in-first-out
+stack is last-in-first-out
+
+Count, Add(), Clear(), Contains(), IndexOf(), Insert(), LastIndexOf(), Remove(), RemoveAt(), Reverse(), Sort()
+System.Collections.Generic
+In generic collections zitten o.a. Stack<T>, Queue<T> of List<T> in tegenstelling tot gewoon Queue of Stack. Je geeft
+dus meteen het type mee van waardes en niet altijd als gewoon Object
+	Dictionary<string, string> extensies = new Dictionary<string,string>{ {"txt", "Notepad"}, {...} };
+	extensies.Add("pptx", "Powerpoint");
+
+
+
+! default waardes: value types zoals int krijgen als default waarde een 0 maar bij bv aantalKinderen kan dit
+verwarrend zijn. Daarom kan je na het type een vraagteken plaatsen: byte? aantalKinderen;
+achteraf moet je hier wel rekening mee houden: aantalKamers = aantalKinderen?? 0;
+
+
+
+Met pattern matching kan je in een if statement ook meteen een variabele koppelen:
+	if (obj is Werknemer w) { ... }
+
+
+
+Met extension methods kan je methods toevoegen aan classes zonder te veel moeite of systeem classes:
+Opgepast deze zijn allemaal static maar kunnen toch worden toegepast op objecten:
+	public static class MyStringExtensions{
+	public static string ToUpperFirst(this string s){
+		return char. ...; }
+De this string s parameter geeft enkel aan dat het om class String gaat.
+Opgepast, het is ook verstandig deze allemaal te groeperen in dezelfde namespace
+
+
+
+
+Func is een standaard delegate type MET een returnwaarde
+Action heeft GEEN returnwaarde
+rap een functie schrijven dat 1 parameter heeft en 1 returnwaarde:
+	Func<int, bool> even = getal => Math.Abs(getal) % 2 == 0;
+even(getal) geeft true of false terug
+
+
+
+
+
+anonymous types: var persoon = new { Nr = 1, Naam = "Adam"};
+Om een lambda expressie te kunnen uitvoeren moet je de expressie toewijzen aan een delegate reference variabele met 
+dezelfde signatuur.
+Ze kunnen ook worden doorgegeven als parameter of als returnwaarde. d m v VARIABLE LIFTING worden variabelen in de 
+lambda functie bewaard en zijn die ook gekend nadat de functie al is doorgegeven als parameter.
+
+
+
+De LINQ query wordt pas uitgevoerd in de foreach loop. Gebruikt ToList() om meteen uit te voeren.
+in de SELECT kan je met een anonymous type werken om nieuwe objecten te creëren.
+SELECT NEW {Brouwernaam = brouwer.Brouwernaam, AantalBieren = brouwer.Bieren.Count };
+Om de elementen van een list in een list te lezen heb je een dubbele FROM nodig.
+Als je groepeert (GROUP BY) kan je de waarde waarop ze zijn verdeeld achteraf aanspreken IN de foreach via .Key
+of in de INTO via .Key
+Voor INTO mijnGroep geen SELECT, op het einde gewoon SELECT mijnGroep
+
+Je kan ook collections JOINEN
+	FROM persoon IN personen
+	JOIN toegangsprijs IN toegangsprijzen
+	ON persoon.AantalKinderen EQUALS toegangsprijs.AantalKinderen
+
+in SELECT NEW de max prijs berekenen met een .Max(plant => plant.Prijs);
+
+
+
+var woorden = zin.Split(new[] { ' ' });
+
+Bij serializen: FileStream object aanmaken en BinaryFormatter aanmaken
+	using (var bestand = File.Open(....)){ var lezer = new BinaryFormatter(); ... }
+! Deze geeft steeds als type Object terug. En je kan ook meteen wegschrijven naar een List<T>
+
+
+async en await
+async methods geven altijd Task<variabele> terug.
+Er zijn al default async methods van .NET Framework. o a bij de classes StreamReader en StreamWriter
+
+
