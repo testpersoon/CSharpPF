@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using VerzamelingVan = Voeding.Gerecht;
+
 
 namespace PastaPizzaNet
 {
     public class Pizza : Gerecht
     {
-        private Pizza(string naam):base()
+        public Pizza(string naam):base()
         {
             Naam = naam;
         }
@@ -21,10 +23,10 @@ namespace PastaPizzaNet
             }
             set
             {
-                if (pizzas.Contains(value)){
+                if (VerzamelingVan.allePizzas.ContainsKey(value)){
                     naamValue = value;
-                    this.Onderdelen = pizzas[this.Naam].onderdelen;
-                    this.Prijs = pizzas[this.Naam].prijs;
+                    Onderdelen = VerzamelingVan.allePizzas[Naam].onderdelen;
+                    Prijs = VerzamelingVan.allePizzas[Naam].prijs;
                 }
                 else
                 {
@@ -35,35 +37,20 @@ namespace PastaPizzaNet
         }
         public override decimal Prijs { get; set; }
         private List<string> Onderdelen { get; set; }
-        private struct Gegevens
+        public override decimal BerekenBedrag()
         {
-            public List<string> onderdelen;
-            public decimal prijs;
-            public Gegevens(List<string> x, decimal y)
-            {
-                onderdelen = x;
-                prijs = y;
-            }
+            return Prijs;
         }
-        private readonly static Dictionary<string, Gegevens> pizzas = new Dictionary<string, Gegevens>
+        public override string ToString()
         {
-            {"Margherita",
-            new Gegevens (
-                new List<string>{
-                    "Tomatensaus",
-                    "Mozzarella" },
-                8m ) //<------ De prijs
-            },
-            {"Napoli",
-            new Gegevens (
-                new List<string>{
-                    "Tomatensaus",
-                    "Mozzarella",
-                    "Ansjovis",
-                    "Kappers",
-                    "Olijven" },
-                10m )
+            StringBuilder tekst = new StringBuilder();
+            tekst.AppendFormat("Pizza {0} <{1} euro> ", Naam, Prijs);
+            foreach (string onderdeel in VerzamelingVan.allePizzas[Naam].onderdelen)
+            {
+                tekst.Append(onderdeel + " - ");
             }
-        };
+            tekst.Remove(tekst.Length - 3, 3);
+            return tekst.ToString(); //e.g. "Pizza Margherita <8 euro> Tomatensaus - Mozzarella"
+        }
     }
 }

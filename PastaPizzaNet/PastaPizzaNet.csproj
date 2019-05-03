@@ -43,11 +43,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BesteldGerecht.cs" />
+    <Compile Include="Bestelling.cs" />
+    <Compile Include="Bestellingen.cs" />
+    <Compile Include="Dessert.cs" />
+    <Compile Include="Drank.cs" />
+    <Compile Include="Frisdrank.cs" />
+    <Compile Include="Dranken.cs" />
+    <Compile Include="Eten.cs" />
     <Compile Include="Gerecht.cs" />
+    <Compile Include="IBedrag.cs" />
+    <Compile Include="Klant.cs" />
     <Compile Include="Pasta.cs" />
     <Compile Include="Pizza.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Warmedrank.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
