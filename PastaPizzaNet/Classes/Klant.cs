@@ -5,16 +5,11 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace PastaPizzaNet
+namespace PastaPizzaNet.Classes
 {
     public class Klant
     {
-        public Klant(string naam)
-        {
-            Naam = naam;
-        }
-        static int lastId = 0;
-        public int KlantID { get; } = Interlocked.Increment(ref lastId);
+        public int KlantID { get; set; }
         public string Naam { get; set; }
         public override string ToString()
         {

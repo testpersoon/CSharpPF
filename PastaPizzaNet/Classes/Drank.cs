@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PastaPizzaNet
+namespace PastaPizzaNet.Classes
 {
     public abstract class Drank
     {
-        public abstract Voeding.Drank Naam { get; set; }
-        public abstract decimal Prijs { get;}
+        public virtual Enums.Drank Naam { get; set; }
+        public virtual decimal Prijs { get; set; }
         public abstract decimal BerekenBedrag();
     }
 }

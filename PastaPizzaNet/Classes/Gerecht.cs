@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PastaPizzaNet
+namespace PastaPizzaNet.Classes
 {
     public abstract class Gerecht: IBedrag
     {
-        public abstract string Naam { get; set; }
-        public abstract decimal Prijs { get; set; }
+        public virtual string Naam { get; set; }
+        public virtual decimal Prijs { get; set; }
         public abstract decimal BerekenBedrag();
     }
 }
