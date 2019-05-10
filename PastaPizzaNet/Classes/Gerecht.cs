@@ -11,5 +11,6 @@ namespace PastaPizzaNet.Classes
         public virtual string Naam { get; set; }
         public virtual decimal Prijs { get; set; }
         public abstract decimal BerekenBedrag();
+        public abstract string StringOmWegTeSchrijven();
     }
 }

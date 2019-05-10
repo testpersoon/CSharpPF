@@ -13,7 +13,7 @@ namespace PastaPizzaNet.Classes
         private static List<Bestelling> alleBestellingenValue;
         public static ReadOnlyCollection<Bestelling> AlleBestellingen()
         {
-            return new ReadOnlyCollection<Bestelling>(alleBestellingenValue);
+            return new ReadOnlyCollection<Bestelling>(alleBestellingenValue??new List<Bestelling>());
         }
         public static void Toevoegen(Bestelling bestelling)
         {
@@ -24,7 +24,7 @@ namespace PastaPizzaNet.Classes
         public static string Tonen()
         {
             StringBuilder tekst = new StringBuilder();
-            if (alleBestellingenValue != null){
+            if (AlleBestellingen().Count > 0){
                 int i = 1;
                 foreach (var bestelling in AlleBestellingen())
                     tekst.AppendFormat("Bestelling {0}:\n{1}\n\n{2}\n", i++, bestelling.ToString(), divider);
@@ -38,35 +38,39 @@ namespace PastaPizzaNet.Classes
         public static string TonenVanKlant(Klant klant)
         {
             StringBuilder tekst = new StringBuilder();
-            if (alleBestellingenValue == null)
+            if (AlleBestellingen().Count != 0)
             {
-                tekst.AppendFormat("\nEr zijn nog geen bestellingen geplaatst.\n");
-            }
-            else if (klant == null)
-            {
-                tekst.AppendFormat("\nOnbekende klanten:\n\n");
-                tekst.AppendFormat(BestellingenAfprintenVan(klant));
-            }
-            else if (AlleBestellingen()
-                .Where(x => x.Klant == klant).Count() == 0)
-            {
-                tekst.AppendFormat("\nBestellingen van klant {0}:\n\n", klant.ToString());
-                tekst.AppendFormat("Deze klant heeft nog geen bestellingen geplaatst.\n");
+               
+                if (klant == null)
+                {
+                    tekst.AppendFormat("\nOnbekende klanten:\n\n");
+                    tekst.AppendFormat(BestellingenVan(klant));
+                }
+                else if (AlleBestellingen()
+                    .Where(x => (x?.Klant?.KlantID??0) == klant.KlantID).Count() == 0)
+                {
+                    tekst.AppendFormat("\nBestellingen van klant {0}:\n\n", klant.ToString());
+                    tekst.AppendFormat("Deze klant heeft nog geen bestellingen geplaatst.\n");
+                }
+                else
+                {
+                    tekst.AppendFormat("\nBestellingen van klant {0}:\n\n", klant.ToString());
+                    tekst.AppendFormat(BestellingenVan(klant));
+                }
             }
             else
             {
-                tekst.AppendFormat("\nBestellingen van klant {0}:\n\n", klant.ToString());
-                tekst.AppendFormat(BestellingenAfprintenVan(klant));
+                tekst.AppendFormat("\nEr zijn nog geen bestellingen geplaatst.\n");
             }
             tekst.AppendFormat("\n{0}\n", divider);
             return tekst.ToString();
         }
-        private static string BestellingenAfprintenVan(Klant klant)
+        private static string BestellingenVan(Klant klant)
         {
             StringBuilder tekst = new StringBuilder();
             decimal totaalBedrag = 0;
             var bestellingenKlant = AlleBestellingen()
-                .Where(x => x.Klant == klant);
+                .Where(x => (x?.Klant?.KlantID ?? 0) == (klant?.KlantID ?? 0));
             foreach (var bestelling in bestellingenKlant)
             {
                 tekst.AppendFormat("{0}\n\n", bestelling.ToString());
@@ -79,36 +83,20 @@ namespace PastaPizzaNet.Classes
         public static string TonenPerKlant()
         {
             StringBuilder tekst = new StringBuilder();
-            if (alleBestellingenValue != null)
+            if (AlleBestellingen().Count > 0)
             {
                 var bestellingenPerKlant = AlleBestellingen()
                                             .GroupBy(x => x.Klant)
-                                            .OrderBy(x => x?.Key?.KlantID ?? Int32.MaxValue);
+                                            .OrderBy(x => x?.Key?.KlantID ?? int.MaxValue);
                 foreach (var klant in bestellingenPerKlant)
                 {
-                    tekst.AppendFormat(Bestellingen.TonenVanKlant(klant.Key));
+                    tekst.AppendFormat(TonenVanKlant(klant.Key));
                 }
             }
             else
             {
-                tekst.AppendFormat("\nEr zijn nog geen bestellingen geplaatst.\n");
+                tekst.Append("\nEr zijn nog geen bestellingen geplaatst.\n");
             }
-            return tekst.ToString();
-        }
-        public static string StringOmKlantenWegTeSchrijven()
-        {
-            var tekst = new StringBuilder();
-            if (alleBestellingenValue != null)
-            {
-                
-
-            }
-            return tekst.ToString();
-        }
-        public static string StringOmBestellingenWegTeSchrijven()
-        {
-            var tekst = new StringBuilder();
-
             return tekst.ToString();
         }
     }

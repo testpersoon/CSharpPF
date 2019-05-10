@@ -22,16 +22,22 @@ namespace PastaPizzaNet.Classes
         }
         public override string ToString()
         {
-            string extras = "";
-            if (Extras?.Count() > 0)
-            {
-                extras = " extra:";
-                foreach (Enums.Extra item in Extras)
-                    extras += " " + item.ToString();
-            }
+            string extras = Extras?.Count > 0? " extra: " : "";
+            extras += string.Join(" ", Extras ?? new List<Enums.Extra>());
             StringBuilder tekst = new StringBuilder();
             tekst.AppendFormat("{0} <{1}>{2} <bedrag: {3} euro>", Gerecht.ToString(), Grootte, extras, BerekenBedrag());
                             //e.g. "Spaghetti Bolognese <12 euro> met gehaktsaus <Groot> extra: Kaas <bedrag: 16 euro>"
+            return tekst.ToString();
+        }
+        public string StringOmWegTeSchrijven()
+        {
+            StringBuilder tekst = new StringBuilder();
+            tekst.AppendFormat("{0}-{1}-{2}-{3}",
+                Gerecht.Naam,
+                Grootte,
+                Extras?.Count??0,
+                string.Join("-", Extras ?? new List<Enums.Extra>()));
+            //e.g. "Spaghetti Bolognese-Groot-1-Kaas"
             return tekst.ToString();
         }
     }

@@ -41,5 +41,16 @@ namespace PastaPizzaNet.Classes
                 $"Bedrag van deze bestelling: {BerekenBedrag()} euro");
             return output;
         }
+        public string StringOmWegTeSchrijven()
+        {
+            StringBuilder tekst = new StringBuilder();
+            tekst.AppendFormat("{0}#{1}#{2}#{3}#{4}",
+                Klant?.KlantID??0,
+                BesteldGerecht?.StringOmWegTeSchrijven(),
+                Drank?.StringOmWegTeSchrijven(),
+                Dessert?.Naam,
+                Aantal);
+            return tekst.ToString(); //e.g. "1#Pizza Margherita-Groot-2-Kaas-Look#F-Water#Ijs#2"
+        }
     }
 }

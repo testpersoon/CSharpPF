@@ -15,5 +15,9 @@ namespace PastaPizzaNet.Classes
         {
             return Naam;
         }
+        public string StringOmWegTeSchrijven()
+        {
+            return KlantID + "#" + Naam;
+        }
     }
 }

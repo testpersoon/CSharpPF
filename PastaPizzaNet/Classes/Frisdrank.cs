@@ -42,5 +42,6 @@ namespace PastaPizzaNet.Classes
             tekst.AppendFormat("{0} <{1:0.0} euro>", Naam.ToString(), Prijs);
             return tekst.ToString();
         }
+        public override string StringOmWegTeSchrijven() => "F-" + Naam;
     }
 }

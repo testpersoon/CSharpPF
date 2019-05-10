@@ -19,5 +19,14 @@ namespace PastaPizzaNet.Classes
             tekst.AppendFormat("{0} <{1} euro> {2}", Naam, Prijs, Omschrijving);
             return tekst.ToString(); //e.g. "Spaghetti Bolognese <12 euro> met gehaktsaus"
         }
+        public override string StringOmWegTeSchrijven()
+        {
+            StringBuilder tekst = new StringBuilder();
+            tekst.AppendFormat("pasta#{0}#{1}#{2}",
+                Naam,
+                Prijs,
+                Omschrijving);
+            return tekst.ToString(); //e.g. "pasta#Spaghetti Bolognese#12#met gehaktsaus"
+        }
     }
 }

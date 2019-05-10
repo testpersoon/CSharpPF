@@ -18,10 +18,18 @@ namespace PastaPizzaNet.Classes
             StringBuilder tekst = new StringBuilder();
             tekst.AppendFormat("Pizza {0} <{1} euro> ", Naam, Prijs);
             if (Onderdelen != null)
-                foreach (string onderdeel in Onderdelen)
-                    tekst.Append(onderdeel + " - ");
-            tekst.Remove(tekst.Length - 3, 3);
+                tekst.AppendFormat(string.Join(" - ", Onderdelen));
             return tekst.ToString(); //e.g. "Pizza Margherita <8 euro> Tomatensaus - Mozzarella"
+        }
+        public override string StringOmWegTeSchrijven()
+        {
+            StringBuilder tekst = new StringBuilder();
+            tekst.AppendFormat("pizza#{0}#{1}#{2}",
+                Naam,
+                Prijs,
+                string.Join("#", Onderdelen));
+            
+            return tekst.ToString(); //e.g. "pizza#Pizza Margherita#8#Tomatensaus#Mozzarella
         }
     }
 }
