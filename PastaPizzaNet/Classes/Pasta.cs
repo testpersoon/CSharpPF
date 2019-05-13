@@ -22,7 +22,8 @@ namespace PastaPizzaNet.Classes
         public override string StringOmWegTeSchrijven()
         {
             StringBuilder tekst = new StringBuilder();
-            tekst.AppendFormat("pasta#{0}#{1}#{2}",
+            tekst.AppendFormat("{0}#{1}#{2}#{3}",
+                Enums.TypeGerecht.pasta,
                 Naam,
                 Prijs,
                 Omschrijving);

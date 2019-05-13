@@ -226,17 +226,18 @@ namespace PastaPizzaNet
             List<Gerecht> lijstGerechten = new List<Gerecht>();
             using (var lezer = new StreamReader(locatie + @"\gerechten.txt"))
             {
-                string naam, pastaOmschrijving, regel;
+                string naam, pastaOmschrijving, regel, typeGerecht;
                 decimal prijs;
                 Gerecht gerecht;
                 while ((regel = lezer.ReadLine()) != null)
                 {
                     string[] gegevens = regel.Split(new Char[] { '#' });
+                    typeGerecht = gegevens[0];
                     naam = gegevens[1];
                     prijs = decimal.Parse(gegevens[2]);
-                    switch (gegevens[0])
+                    switch (Enum.Parse(typeof(Enums.TypeGerecht), typeGerecht))
                     {
-                        case "pizza":
+                        case Enums.TypeGerecht.pizza:
                             var pizzaOnderdelen = new List<string>();
                             for (var i = 3; i < gegevens.Length; i++)
                             {
@@ -245,7 +246,7 @@ namespace PastaPizzaNet
                             gerecht = new Pizza { Naam = naam, Prijs = prijs, Onderdelen = pizzaOnderdelen };
                             lijstGerechten.Add(gerecht);
                             break;
-                        case "pasta":
+                        case Enums.TypeGerecht.pasta:
                             pastaOmschrijving = gegevens[3];
                             gerecht = new Pasta { Naam = naam, Prijs = prijs, Omschrijving = pastaOmschrijving };
                             lijstGerechten.Add(gerecht);
@@ -265,9 +266,10 @@ namespace PastaPizzaNet
                 {
                     Bestelling bestelling = new Bestelling();
                     string[] gegevens = regel.ToUpper().Split(new Char[] { '#' });
+                    int klantID = int.Parse(gegevens[0]);
                     //Klant
-                    if (gegevens[0] != "0")
-                        bestelling.Klant = lijstKlanten.First(k => k.KlantID == int.Parse(gegevens[0]));
+                    if (klantID != 0)
+                        bestelling.Klant = lijstKlanten.First(k => k.KlantID == klantID);
                     //Besteld gerecht
                     if (gegevens[1].Length > 0)
                     {
@@ -281,18 +283,7 @@ namespace PastaPizzaNet
                             var extras = new List<Enums.Extra>();
                             for (var i = 3; i < gegevensGerecht.Length; i++)
                             {
-                                switch (gegevensGerecht[i])
-                                {
-                                    case "BROOD":
-                                        extras.Add(Enums.Extra.Brood);
-                                        break;
-                                    case "KAAS":
-                                        extras.Add(Enums.Extra.Kaas);
-                                        break;
-                                    case "LOOK":
-                                        extras.Add(Enums.Extra.Look);
-                                        break;
-                                }
+                                extras.Add((Enums.Extra)Enum.Parse(typeof(Enums.Extra), gegevensGerecht[i]));
                             }
                             besteldGerecht.Extras = extras;
                         }
@@ -305,47 +296,17 @@ namespace PastaPizzaNet
                         switch (gegevensDrank[0])
                         {
                             case "F":
-                                switch (gegevensDrank[1])
-                                {
-                                    case "WATER":
-                                        bestelling.Drank = new Frisdrank { Naam = Enums.Drank.Water };
-                                        break;
-                                    case "LIMONADE":
-                                        bestelling.Drank = new Frisdrank { Naam = Enums.Drank.Limonade };
-                                        break;
-                                    case "COCACOLA":
-                                        bestelling.Drank = new Frisdrank { Naam = Enums.Drank.CocaCola };
-                                        break;
-                                }
+                                bestelling.Drank = new Frisdrank { Naam = (Enums.Drank)Enum.Parse(typeof(Enums.Drank), gegevensDrank[1]) };
                                 break;
                             case "W":
-                                switch (gegevensDrank[1])
-                                {
-                                    case "KOFFIE":
-                                        bestelling.Drank = new WarmeDrank { Naam = Enums.Drank.Koffie };
-                                        break;
-                                    case "THEE":
-                                        bestelling.Drank = new WarmeDrank { Naam = Enums.Drank.Thee };
-                                        break;
-                                }
+                                bestelling.Drank = new WarmeDrank { Naam = (Enums.Drank)Enum.Parse(typeof(Enums.Drank), gegevensDrank[1]) };
                                 break;
                         }
                     }
                     //Dessert
                     if (gegevens[3].Length > 0)
                     {
-                        switch (gegevens[3])
-                        {
-                            case "TIRAMISU":
-                                bestelling.Dessert = new Dessert { Naam = Enums.Dessert.Tiramisu };
-                                break;
-                            case "IJS":
-                                bestelling.Dessert = new Dessert { Naam = Enums.Dessert.Ijs };
-                                break;
-                            case "CAKE":
-                                bestelling.Dessert = new Dessert { Naam = Enums.Dessert.Cake };
-                                break;
-                        }
+                        bestelling.Dessert = new Dessert { Naam = (Enums.Dessert)Enum.Parse(typeof(Enums.Dessert), gegevens[3]) };
                     }
                     bestelling.Aantal = int.Parse(gegevens[4]);
                     lijstBestellingen.Add(bestelling);

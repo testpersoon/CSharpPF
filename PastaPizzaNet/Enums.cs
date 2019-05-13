@@ -31,4 +31,9 @@ namespace Enums
         Klein,
         Groot
     }
+    public enum TypeGerecht
+    {
+        pizza,
+        pasta
+    }
 }

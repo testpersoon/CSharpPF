@@ -51,11 +51,13 @@
     <Compile Include="Classes\Frisdrank.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="Classes\Gerecht.cs" />
-    <Compile Include="Exceptions.cs" />
+    <Compile Include="Exceptions\GeenFrisdrankException.cs" />
+    <Compile Include="Exceptions\GeenWarmeDrankException.cs" />
     <Compile Include="IBedrag.cs" />
     <Compile Include="Classes\Klant.cs" />
     <Compile Include="Classes\Pasta.cs" />
     <Compile Include="Classes\Pizza.cs" />
+    <Compile Include="Exceptions\PrijsVanDessertNietGevonden.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Classes\WarmeDrank.cs" />
